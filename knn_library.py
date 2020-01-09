@@ -16,7 +16,7 @@ def ordered_distances(target_vector:list, crowd_table:dframe, answer_column:str,
   distance_list.sort(key = lambda dist_tup: dist_tup[1])
   return distance_list
 
-def knn(target_vector:list, crowd_table:dframe, answer_column:str, k:int, dfunc:Callable) -> int:
+def knn(target_vector:list, crowd_table, answer_column:str, k:int, dfunc:Callable) -> int:
   assert isinstance(target_vector, list), f'target_vector not a list but instead a {type(target_vector)}'
   assert isinstance(crowd_table, pd.core.frame.DataFrame), f'crowd_table not a dataframe but instead a {type(crowd_table)}'
   assert isinstance(answer_column, str), f'answer_column not a string but instead a {type(answer_column)}'
@@ -28,7 +28,7 @@ def knn(target_vector:list, crowd_table:dframe, answer_column:str, k:int, dfunc:
   polled_survival = [crowd_table.loc[i, 'Survived'] for i in polled_id]
   return int(sum(polled_survival)/len(polled_survival) > .5)
   
-def knn_accuracy_tester(test_table:dframe, crowd_table:dframe, answer_column:str, k:int, dfunc:Callable) -> float:
+def knn_accuracy_tester(test_table:dframe, crowd_table, answer_column:str, k:int, dfunc:Callable) -> float:
   assert isinstance(test_table, pd.core.frame.DataFrame), f'test_table not a dataframe but instead a {type(test_table)}'
   assert isinstance(crowd_table, pd.core.frame.DataFrame), f'crowd_table not a dataframe but instead a {type(crowd_table)}'
   assert isinstance(answer_column, str), f'answer_column not a string but instead a {type(answer_column)}'
