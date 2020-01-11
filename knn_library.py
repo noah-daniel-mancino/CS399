@@ -25,7 +25,7 @@ def knn(target_vector:list, crowd_table, answer_column:str, k:int, dfunc) -> int
   assert callable(dfunc), f'dfunc not a function but instead a {type(dfunc)}'
   polled = ordered_distances(target_vector, crowd_table, answer_column, dfunc)[:k]
   polled_id = [i for i,d in polled]
-  print(polled_id)
+  print(polled)
   polled_survival = [crowd_table.loc[i, 'label'] for i in polled_id]
   return int(sum(polled_survival)/len(polled_survival) > .5)
   
