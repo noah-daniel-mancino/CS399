@@ -9,6 +9,7 @@ def ordered_distances(target_vector:list, crowd_table, answer_column:str, dfunc)
   crowd_table = crowd_table.drop(answer_column, axis=1)
   distance_list = []                                    
   for index, row in crowd_table.iterrows():
+    row.drop([answer_column], axis=0)
     row_vector = [row[i] for i in range(row.size)]
     distance = dfunc(row_vector, target_vector)
     distance_list.append((index, distance))
