@@ -6,10 +6,10 @@ def ordered_distances(target_vector:list, crowd_table, answer_column:str, dfunc)
   assert isinstance(answer_column, str), f'answer_column not a string but instead a {type(answer_column)}'
   assert callable(dfunc), f'dfunc not a function but instead a {type(dfunc)}'
   assert answer_column in crowd_table, f'{answer_column} is not a legit column in crowd_table - check case and spelling'
-  crowd_table = crowd_table.drop(answer_column, axis=1) # Would it be bad to 
-  distance_list = []                                    # drop in-place instead?
+  distance_list = []                                    
   for index, row in crowd_table.iterrows():
     row_vector = [row[i] for i in range(row.size)]
+    row_vector.drop(answer_column)
     distance = dfunc(row_vector, target_vector)
     distance_list.append((index, distance))
   
