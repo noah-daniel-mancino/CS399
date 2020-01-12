@@ -8,7 +8,8 @@ def ordered_distances(target_vector:list, crowd_table, answer_column:str, dfunc)
   assert answer_column in crowd_table, f'{answer_column} is not a legit column in crowd_table - check case and spelling'
   distance_list = []                                    
   for index, row in crowd_table.iterrows():
-    row_vector = [row.drop(answer_columnn)[i] for i in range(row.size)]
+    row = row.drop(answer_column)
+    row_vector = [row[i] for i in range(row.size)]
     distance = dfunc(row_vector, target_vector)
     distance_list.append((index, distance))
   
