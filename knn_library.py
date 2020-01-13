@@ -26,7 +26,7 @@ def knn(target_vector:list, crowd_table, answer_column:str, k:int, dfunc) -> int
   polled = ordered_distances(target_vector, crowd_table, answer_column, dfunc)[:k]
   polled_id = [i for i,d in polled]
   polled_survival = [crowd_table.loc[i, answer_column] for i in polled_id]
-  return int(sum(polled_survival)/len(polled_survival) > .5)
+  return int(sum(polled_survival)/len(polled_survival) >= .5)
   
 def cmm_accuracy(test_table, crowd_table, answer_column:str, k:int, dfunc) -> float:
   assert isinstance(test_table, pd.core.frame.DataFrame), f'test_table not a dataframe but instead a {type(test_table)}'
