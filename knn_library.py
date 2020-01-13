@@ -64,7 +64,7 @@ def knn_tester(test_table, crowd_table, answer_column, k, dfunc) -> dict:
 
   return condition_count
 
-def cmm_accuracy(condition_count):
+def cm_accuracy(condition_count):
   total_correct = condition_count[(0,0)] + condition_count[(1,1)]
   total = condition_count[(0,0)] + condition_count[(1,1)] + condition_count[(1,0)] + condition_count[(0,1)]
   return total_correct/total
