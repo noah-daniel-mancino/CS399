@@ -28,7 +28,7 @@ def knn(target_vector:list, crowd_table, answer_column:str, k:int, dfunc) -> int
   polled_survival = [crowd_table.loc[i, answer_column] for i in polled_id]
   return int(sum(polled_survival)/len(polled_survival) > .5)
   
-def knn_accuracy_tester(test_table, crowd_table, answer_column:str, k:int, dfunc) -> float:
+def cmm_accuracy(test_table, crowd_table, answer_column:str, k:int, dfunc) -> float:
   assert isinstance(test_table, pd.core.frame.DataFrame), f'test_table not a dataframe but instead a {type(test_table)}'
   assert isinstance(crowd_table, pd.core.frame.DataFrame), f'crowd_table not a dataframe but instead a {type(crowd_table)}'
   assert isinstance(answer_column, str), f'answer_column not a string but instead a {type(answer_column)}'
