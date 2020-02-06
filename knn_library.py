@@ -68,3 +68,27 @@ def cm_accuracy(condition_count):
   total_correct = condition_count[(0,0)] + condition_count[(1,1)]
   total = condition_count[(0,0)] + condition_count[(1,1)] + condition_count[(1,0)] + condition_count[(0,1)]
   return total_correct/total
+
+def cosine_similarity(vect1:list ,vect2:list) -> float:
+  assert isinstance(vect1, list), f'vect1 is not a list but a {type(vect1)}'
+  assert isinstance(vect2, list), f'vect2 is not a list but a {type(vect2)}'
+  assert len(vect1) == len(vect2), f"Mismatching length for vectors: {len(vect1)} and {len(vect2)}"
+  product = 0
+  magnitude_vect1 = 0
+  magnitude_vect2 = 0
+  for index, component in enumerate(vect1):
+    component2 = vect2[index]
+    product += component2*component
+    magnitude_vect1 += component**2
+    magnitude_vect2 += component2**2
+  magnitude_vect1 = magnitude_vect1**(1/2)
+  magnitude_vect2 = magnitude_vect2**(1/2)
+  return product/(magnitude_vect1*magnitude_vect2)
+
+def inverse_cosine_similarity(vect1:list ,vect2:list) -> float:
+  assert isinstance(vect1, list), f'vect1 is not a list but a {type(vect1)}'
+  assert isinstance(vect2, list), f'vect2 is not a list but a {type(vect2)}'
+  assert len(vect1) == len(vect2), f"Mismatching length for vectors: {len(vect1)} and {len(vect2)}"
+
+  normal_result = cosine_similarity(vect1, vect2)
+  return 1.0 - normal_result
