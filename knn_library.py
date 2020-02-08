@@ -1,5 +1,11 @@
 import pandas as pd
 import re
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+
+swords = stopwords.words('english')
+swords.sort()
 
 def ordered_distances(target_vector:list, crowd_table, answer_column:str, dfunc) -> list:
   assert isinstance(target_vector, list), f'target_vector not a list but instead a {type(target_vector)}'
