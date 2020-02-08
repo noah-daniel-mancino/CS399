@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 
 def ordered_distances(target_vector:list, crowd_table, answer_column:str, dfunc) -> list:
   assert isinstance(target_vector, list), f'target_vector not a list but instead a {type(target_vector)}'
@@ -91,3 +92,15 @@ def inverse_cosine_similarity(vect1:list ,vect2:list) -> float:
   assert len(vect1) == len(vect2), f'Mismatching length for vectors: {len(vect1)} and {len(vect2)}'
   normal_result = cosine_similarity(vect1, vect2)
   return 1.0 - normal_result
+
+def get_clean_words(stopwords:list, raw_sentence:str) -> list:
+  assert isinstance(stopwords, list), f'stopwords must be a list but saw a {type(stopwords)}'
+  assert all([isinstance(word, str) for word in stopwords]), f'expecting stopwords to be a list of strings'
+  assert isinstance(raw_sentence, str), f'raw_sentence must be a str but saw a {type(raw_sentence)}'
+
+  sentence = raw_sentence.lower()
+  for word in stopwords:
+    sentence = re.sub(r"\b"+word+r"\b", '', sentence)  #replace stopword with empty
+
+  cleaned = re.findall("\w+", sentence)  #now find the words
+  return cleaned
