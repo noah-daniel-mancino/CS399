@@ -91,6 +91,8 @@ def cosine_similarity(vect1:list ,vect2:list) -> float:
     product += component2*component
     magnitude_vect1 += component**2
     magnitude_vect2 += component2**2
+  if magnitude_vect1 == 0 or magnitude_vect2 == 0:
+    return 0
   magnitude_vect1 = magnitude_vect1**(1/2)
   magnitude_vect2 = magnitude_vect2**(1/2)
   return product/(magnitude_vect1*magnitude_vect2)
