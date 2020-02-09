@@ -83,6 +83,8 @@ def cosine_similarity(vect1:list ,vect2:list) -> float:
   assert isinstance(vect1, list), f'vect1 is not a list but a {type(vect1)}'
   assert isinstance(vect2, list), f'vect2 is not a list but a {type(vect2)}'
   assert len(vect1) == len(vect2), f"Mismatching length for vectors: {len(vect1)} and {len(vect2)}"
+  if not any(vect1) or not any(vect2):
+    return 0
   product = 0
   magnitude_vect1 = 0
   magnitude_vect2 = 0
@@ -91,10 +93,6 @@ def cosine_similarity(vect1:list ,vect2:list) -> float:
     product += component2*component
     magnitude_vect1 += component**2
     magnitude_vect2 += component2**2
-  print(magnitude_vect1)
-  print(magnitude_vect2)
-  if magnitude_vect1 == 0 or magnitude_vect2 == 0:
-    return 0
   magnitude_vect1 = magnitude_vect1**(1/2)
   magnitude_vect2 = magnitude_vect2**(1/2)
   return product/(magnitude_vect1*magnitude_vect2)
