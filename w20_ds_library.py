@@ -147,7 +147,7 @@ def bayes_tester(testing_table: dframe, evidence_bag:dict, training_table, parse
     bayes_values.append(bayes(parsed, evidence_bag, training_table))
   return bayes_values
 
-def robust_bayes(evidence:set, evidence_bag:dict, training_table, laplace:float=1.0) -> tuple:
+def robust_bayes(evidence:set, evidence_bag:dict, training_table, laplace:float=1.0):
   assert isinstance(evidence, set), f'evidence not a set but instead a {type(evidence)}'
   assert isinstance(evidence_bag, dict), f'evidence_bag not a dict but instead a {type(evidence_bag)}'
   assert isinstance(training_table, pd.core.frame.DataFrame), f'training_table not a dataframe but instead a {type(training_table)}'
@@ -162,5 +162,5 @@ def robust_bayes(evidence:set, evidence_bag:dict, training_table, laplace:float=
     for item in evidence:
       probability_list[label] *= (evidence_bag.get(item, [0,0,0])[label] + laplace)/(len(evidence_bag) + count + 1)
     probability_list[label] *= count/(len(training_table))
-  probablility_tuple = tuple(probability_list)
-  return probability_tuple
+   #probablility_tuple = tuple(probability_list)
+  return probability_list
