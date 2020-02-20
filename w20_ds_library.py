@@ -116,7 +116,7 @@ def get_clean_words(stopwords:list, raw_sentence:str) -> list:
   cleaned = re.findall("\w+", sentence)  #now find the words
   return cleaned
 
-def bayes(evidence:set, evidence_bag:dict, training_table) -> tuple:
+def bayes(evidence:set, evidence_bag:dict, training_table):
   assert isinstance(evidence, set), f'evidence not a set but instead a {type(evidence)}'
   assert isinstance(evidence_bag, dict), f'evidence_bag not a dict but instead a {type(evidence_bag)}'
   assert isinstance(training_table, pd.core.frame.DataFrame), f'training_table not a dataframe but instead a {type(training_table)}'
@@ -130,8 +130,8 @@ def bayes(evidence:set, evidence_bag:dict, training_table) -> tuple:
     for item in evidence:
       probability_list[label] *= evidence_bag[item][label]/count
     probability_list[label] *= count/len(training_table)
-  probablility_tuple = tuple(probability_list)
-  return probablility_tuple
+  #probablility_tuple = tuple(probability_list)
+  return probablility_list
 
 def bayes_tester(testing_table: dframe, evidence_bag:dict, training_table, parser:callable) -> list:
   assert isinstance(testing_table, pd.core.frame.DataFrame), f'test_table not a dataframe but instead a {type(testing_table)}'
