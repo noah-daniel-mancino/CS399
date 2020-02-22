@@ -162,5 +162,5 @@ def robust_bayes(evidence:set, evidence_bag:dict, training_table, laplace:float=
     for item in evidence:
       probability_list[label] *= (evidence_bag.get(item, [0,0,0])[label] + laplace)/(len(evidence_bag) + count + 1)
     probability_list[label] *= count/(len(training_table))
-   #probablility_tuple = tuple(probability_list)
-  return probability_list
+  probablility_tuple = tuple(probability_list)
+  return probability_tuple
