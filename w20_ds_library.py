@@ -164,3 +164,9 @@ def robust_bayes(evidence:set, evidence_bag:dict, training_table, laplace:float=
     probability_list[label] *= count/(len(training_table))
   probablility_tuple = tuple(probability_list)
   return probability_tuple
+
+def euclidean_distance(vect1, vect2):
+  square_distance = 0
+  for index, element in enumerate(vect1):
+    square_distance += (element - vect2[index]) ** 2
+  return square_distance ** 0.5
