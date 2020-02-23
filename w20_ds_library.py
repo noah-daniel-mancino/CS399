@@ -173,7 +173,7 @@ def euclidean_distance(vect1, vect2):
     square_distance += (element - vect2[index]) ** 2
   return square_distance ** 0.5
 
-def fast_euclidean_distance(x:narray, y:narray) -> float:
+def fast_euclidean_distance(x, y) -> float:
   assert isinstance(x, numpy.ndarray), f"x must be a numpy array but instead is {type(x)}"
   assert len(x.shape) == 1, f"x must be a 1d array but instead is {len(x.shape)}d"
   assert isinstance(y, numpy.ndarray), f"y must be a numpy array but instead is {type(y)}"
