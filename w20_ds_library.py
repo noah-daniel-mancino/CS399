@@ -180,28 +180,28 @@ def fast_euclidean_distance(x, y) -> float:
   assert len(y.shape) == 1, f"y must be a 1d array but instead is {len(y.shape)}d"
   return sum(np.square(np.subtract(x, y))) ** .5
 
-def subtractv(x:narray, y:narray) -> narray:
+def subtractv(x, y):
   assert isinstance(x, numpy.ndarray), f"x must be a numpy array but instead is {type(x)}"
   assert len(x.shape) == 1, f"x must be a 1d array but instead is {len(x.shape)}d"
   assert isinstance(y, numpy.ndarray), f"y must be a numpy array but instead is {type(y)}"
   assert len(y.shape) == 1, f"y must be a 1d array but instead is {len(y.shape)}d"
   return np.subtract(x, y) # Is this cheating?
 
-def addv(x:narray, y:narray) -> narray:
+def addv(x, y):
   assert isinstance(x, numpy.ndarray), f"x must be a numpy array but instead is {type(x)}"
   assert len(x.shape) == 1, f"x must be a 1d array but instead is {len(x.shape)}d"
   assert isinstance(y, numpy.ndarray), f"y must be a numpy array but instead is {type(y)}"
   assert len(y.shape) == 1, f"y must be a 1d array but instead is {len(y.shape)}d"
   return np.add(x, y)
 
-def meanv(matrix: narray) -> narray:
+def meanv(matrix):
   assert isinstance(matrix, numpy.ndarray), f"matrix must be a numpy array but instead is {type(matrix)}"
   assert len(matrix.shape) == 2, f"matrix must be a 2d array but instead is {len(matrix.shape)}d"
   return np.array(np.mean(matrix, axis=0).flat)
 
 from numpy.linalg import norm  #hint: i found this useful
 
-def fast_cosine(v1:narray, v2:narray) -> float:
+def fast_cosine(v1, v2) -> float:
   assert isinstance(v1, numpy.ndarray), f"v1 must be a numpy array but instead is {type(v1)}"
   assert len(v1.shape) == 1, f"v1 must be a 1d array but instead is {len(v1.shape)}d"
   assert isinstance(v2, numpy.ndarray), f"v2 must be a numpy array but instead is {type(v2)}"
@@ -211,7 +211,7 @@ def fast_cosine(v1:narray, v2:narray) -> float:
     return 0.0
   return np.dot(v1, v2)/(norm(v1)*norm(v2))
 
-def dict_ordered_distances(space:dict, coord:narray) -> list:
+def dict_ordered_distances(space:dict, coord) -> list:
   assert isinstance(space, dict), f"space must be a dictionary but instead a {type(space)}"
   assert isinstance(list(space.values())[0], numpy.ndarray), f"space must have numpy arrays as values but instead has {type(space.values()[0])}"
   assert isinstance(coord, numpy.ndarray), f"coord must be a numpy array but instead is {type(cord)}"
@@ -225,7 +225,7 @@ def dict_ordered_distances(space:dict, coord:narray) -> list:
 def vec(nlp, s:str):
     return nlp.vocab[s].vector
 
-def sent2vec(nlp:spnlp, s: str):
+def sent2vec(nlp, s: str):
   word_array = []
   for token in nlp(s.lower()):
     token = token.text
