@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+import spacy
 import re
 import nltk
 nltk.download('stopwords')
@@ -220,17 +222,17 @@ def dict_ordered_distances(space:dict, coord:narray) -> list:
     distances.append((key, fast_euclidean_distance(value, coord)))
   return sorted(distances, key = lambda x: x[1])
 
-def vec(nlp:spnlp, s:str) -> narray:
+def vec(nlp, s:str):
     return nlp.vocab[s].vector
 
-def sent2vec(nlp:spnlp, s: str) -> narray:
+def sent2vec(nlp:spnlp, s: str):
   word_array = []
   for token in nlp(s.lower()):
     token = token.text
     word_array.append(vec(nlp, token))
   return meanv(np.matrix(word_array))
 
-def spacy_closest_sent(nlp:spnlp, space:list, input_str:str, n:int=10):
+def spacy_closest_sent(nlp, space:list, input_str:str, n:int=10):
   assert isinstance(space, list)
   assert all([isinstance(sp, spacy.tokens.span.Span) for sp in space])
 
