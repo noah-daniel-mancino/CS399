@@ -174,37 +174,37 @@ def euclidean_distance(vect1, vect2):
   return square_distance ** 0.5
 
 def fast_euclidean_distance(x, y) -> float:
-  assert isinstance(x, numpy.ndarray), f"x must be a numpy array but instead is {type(x)}"
+  assert isinstance(x, np.ndarray), f"x must be a numpy array but instead is {type(x)}"
   assert len(x.shape) == 1, f"x must be a 1d array but instead is {len(x.shape)}d"
-  assert isinstance(y, numpy.ndarray), f"y must be a numpy array but instead is {type(y)}"
+  assert isinstance(y, np.ndarray), f"y must be a numpy array but instead is {type(y)}"
   assert len(y.shape) == 1, f"y must be a 1d array but instead is {len(y.shape)}d"
   return sum(np.square(np.subtract(x, y))) ** .5
 
 def subtractv(x, y):
-  assert isinstance(x, numpy.ndarray), f"x must be a numpy array but instead is {type(x)}"
+  assert isinstance(x, np.ndarray), f"x must be a numpy array but instead is {type(x)}"
   assert len(x.shape) == 1, f"x must be a 1d array but instead is {len(x.shape)}d"
-  assert isinstance(y, numpy.ndarray), f"y must be a numpy array but instead is {type(y)}"
+  assert isinstance(y, np.ndarray), f"y must be a numpy array but instead is {type(y)}"
   assert len(y.shape) == 1, f"y must be a 1d array but instead is {len(y.shape)}d"
   return np.subtract(x, y) # Is this cheating?
 
 def addv(x, y):
-  assert isinstance(x, numpy.ndarray), f"x must be a numpy array but instead is {type(x)}"
+  assert isinstance(x, np.ndarray), f"x must be a numpy array but instead is {type(x)}"
   assert len(x.shape) == 1, f"x must be a 1d array but instead is {len(x.shape)}d"
-  assert isinstance(y, numpy.ndarray), f"y must be a numpy array but instead is {type(y)}"
+  assert isinstance(y, np.ndarray), f"y must be a numpy array but instead is {type(y)}"
   assert len(y.shape) == 1, f"y must be a 1d array but instead is {len(y.shape)}d"
   return np.add(x, y)
 
 def meanv(matrix):
-  assert isinstance(matrix, numpy.ndarray), f"matrix must be a numpy array but instead is {type(matrix)}"
+  assert isinstance(matrix, np.ndarray), f"matrix must be a numpy array but instead is {type(matrix)}"
   assert len(matrix.shape) == 2, f"matrix must be a 2d array but instead is {len(matrix.shape)}d"
   return np.array(np.mean(matrix, axis=0).flat)
 
 from numpy.linalg import norm  #hint: i found this useful
 
 def fast_cosine(v1, v2) -> float:
-  assert isinstance(v1, numpy.ndarray), f"v1 must be a numpy array but instead is {type(v1)}"
+  assert isinstance(v1, np.ndarray), f"v1 must be a numpy array but instead is {type(v1)}"
   assert len(v1.shape) == 1, f"v1 must be a 1d array but instead is {len(v1.shape)}d"
-  assert isinstance(v2, numpy.ndarray), f"v2 must be a numpy array but instead is {type(v2)}"
+  assert isinstance(v2, np.ndarray), f"v2 must be a numpy array but instead is {type(v2)}"
   assert len(v2.shape) == 1, f"v2 must be a 1d array but instead is {len(v2.shape)}d"
   assert len(v1) == len(v2), f'v1 and v2 must have same length but instead have {len(v1)} and {len(v2)}'
   if not np.any(v1) or not np.any(v2):
@@ -213,8 +213,8 @@ def fast_cosine(v1, v2) -> float:
 
 def dict_ordered_distances(space:dict, coord) -> list:
   assert isinstance(space, dict), f"space must be a dictionary but instead a {type(space)}"
-  assert isinstance(list(space.values())[0], numpy.ndarray), f"space must have numpy arrays as values but instead has {type(space.values()[0])}"
-  assert isinstance(coord, numpy.ndarray), f"coord must be a numpy array but instead is {type(cord)}"
+  assert isinstance(list(space.values())[0], np.ndarray), f"space must have numpy arrays as values but instead has {type(space.values()[0])}"
+  assert isinstance(coord, np.ndarray), f"coord must be a numpy array but instead is {type(cord)}"
   assert len(list(space.values())[0]) == len(coord), f"space values must be same length as coord"
   assert len(coord) == 3, "coord must be a triple"
   distances = []
