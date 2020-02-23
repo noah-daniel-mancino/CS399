@@ -170,3 +170,71 @@ def euclidean_distance(vect1, vect2):
   for index, element in enumerate(vect1):
     square_distance += (element - vect2[index]) ** 2
   return square_distance ** 0.5
+
+def fast_euclidean_distance(x:narray, y:narray) -> float:
+  assert isinstance(x, numpy.ndarray), f"x must be a numpy array but instead is {type(x)}"
+  assert len(x.shape) == 1, f"x must be a 1d array but instead is {len(x.shape)}d"
+  assert isinstance(y, numpy.ndarray), f"y must be a numpy array but instead is {type(y)}"
+  assert len(y.shape) == 1, f"y must be a 1d array but instead is {len(y.shape)}d"
+  return sum(np.square(np.subtract(x, y))) ** .5
+
+def subtractv(x:narray, y:narray) -> narray:
+  assert isinstance(x, numpy.ndarray), f"x must be a numpy array but instead is {type(x)}"
+  assert len(x.shape) == 1, f"x must be a 1d array but instead is {len(x.shape)}d"
+  assert isinstance(y, numpy.ndarray), f"y must be a numpy array but instead is {type(y)}"
+  assert len(y.shape) == 1, f"y must be a 1d array but instead is {len(y.shape)}d"
+  return np.subtract(x, y) # Is this cheating?
+
+def addv(x:narray, y:narray) -> narray:
+  assert isinstance(x, numpy.ndarray), f"x must be a numpy array but instead is {type(x)}"
+  assert len(x.shape) == 1, f"x must be a 1d array but instead is {len(x.shape)}d"
+  assert isinstance(y, numpy.ndarray), f"y must be a numpy array but instead is {type(y)}"
+  assert len(y.shape) == 1, f"y must be a 1d array but instead is {len(y.shape)}d"
+  return np.add(x, y)
+
+def meanv(matrix: narray) -> narray:
+  assert isinstance(matrix, numpy.ndarray), f"matrix must be a numpy array but instead is {type(matrix)}"
+  assert len(matrix.shape) == 2, f"matrix must be a 2d array but instead is {len(matrix.shape)}d"
+  return np.array(np.mean(matrix, axis=0).flat)
+
+from numpy.linalg import norm  #hint: i found this useful
+
+def fast_cosine(v1:narray, v2:narray) -> float:
+  assert isinstance(v1, numpy.ndarray), f"v1 must be a numpy array but instead is {type(v1)}"
+  assert len(v1.shape) == 1, f"v1 must be a 1d array but instead is {len(v1.shape)}d"
+  assert isinstance(v2, numpy.ndarray), f"v2 must be a numpy array but instead is {type(v2)}"
+  assert len(v2.shape) == 1, f"v2 must be a 1d array but instead is {len(v2.shape)}d"
+  assert len(v1) == len(v2), f'v1 and v2 must have same length but instead have {len(v1)} and {len(v2)}'
+  if not np.any(v1) or not np.any(v2):
+    return 0.0
+  return np.dot(v1, v2)/(norm(v1)*norm(v2))
+
+def dict_ordered_distances(space:dict, coord:narray) -> list:
+  assert isinstance(space, dict), f"space must be a dictionary but instead a {type(space)}"
+  assert isinstance(list(space.values())[0], numpy.ndarray), f"space must have numpy arrays as values but instead has {type(space.values()[0])}"
+  assert isinstance(coord, numpy.ndarray), f"coord must be a numpy array but instead is {type(cord)}"
+  assert len(list(space.values())[0]) == len(coord), f"space values must be same length as coord"
+  assert len(coord) == 3, "coord must be a triple"
+  distances = []
+  for key, value in space.items():
+    distances.append((key, fast_euclidean_distance(value, coord)))
+  return sorted(distances, key = lambda x: x[1])
+
+def vec(nlp:spnlp, s:str) -> narray:
+    return nlp.vocab[s].vector
+
+def sent2vec(nlp:spnlp, s: str) -> narray:
+  word_array = []
+  for token in nlp(s.lower()):
+    token = token.text
+    word_array.append(vec(nlp, token))
+  return meanv(np.matrix(word_array))
+
+def spacy_closest_sent(nlp:spnlp, space:list, input_str:str, n:int=10):
+  assert isinstance(space, list)
+  assert all([isinstance(sp, spacy.tokens.span.Span) for sp in space])
+
+  input_vec = sent2vec(nlp, input_str)
+  return sorted(space,
+                key=lambda x: fast_cosine(np.mean([w.vector for w in x], axis=0), input_vec),
+                reverse=True)[:n]
